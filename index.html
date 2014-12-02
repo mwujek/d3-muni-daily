@@ -16,7 +16,7 @@
 
 	<title>just call me wuj</title>
 
-	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- Load d3 -->
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	
@@ -35,22 +35,20 @@
 
 </head>
 <body>
+
+
 <script type="text/javascript">
+
+
 var circleDiameter = 10;
 var barHeight = 20;
 var allLinesData;
-var chartH = 250;
-var chartW = 600;
+var chartH = 290;
+var chartW = 500;
 
 d3.csv("summary.csv", function(data) {
 
     allLinesData = data;
-    
-
-    // var lines = [
-    //                 { lineName: "29", direction: "in" },
-    //             ];
-
 
     var summaryData = [
     { colName: "NumTrips", niceName: "Number of Trips" },
@@ -63,12 +61,10 @@ d3.csv("summary.csv", function(data) {
     { colName: "RouteDist", niceName: "Route Distance" },
     { colName: "AvgSpeed", niceName: "Average MPH" },
     { colName: "Rank", niceName: "Rank" },
-// "NumTrips", "FirstBus", "LastBus", "Min", "Max", "Avg", "Range", "RouteDist", "AvgSpeed", "Rank"
+
 ];
 
-
-
-   var lineRows = d3.selectAll("div.line")
+   var lineRows = d3.selectAll("div.line") // make a div for each line/direction...scale line based on distance
          .data(data)
          .enter()
          .append("div")
@@ -79,7 +75,6 @@ d3.csv("summary.csv", function(data) {
          })
          .attr("class", "line");
 
-    //console.log(allLinesData);
    var dotContainer = lineRows.append("svg")  // add svg container for circles
          .attr("height" , barHeight)
          .attr("width", function(d){
@@ -88,6 +83,13 @@ d3.csv("summary.csv", function(data) {
          .attr("class",function(d){
             return d.Route + "-" + d.Direction;
          });
+
+    // ISSUE #1 ADDING DOTS TO THE SVG CONTAINER
+    // ISSUE #2 USING A FUNCTION TO ASSIGN DURATION OF ANIMATION
+    //   a. The animation will take the circles from left to right, the duration reflect their speed
+    //   b. Try to find a way to colorize the dots based on speed
+    //         i. based on quartile range?
+
 
    // var busDot = lineRows.selectAll("svg") // add circles
    //       .append( "circle" )
@@ -113,22 +115,22 @@ d3.csv("summary.csv", function(data) {
 
    //data inside each bar
 
-   var infoContainer  = lineRows.append("div")
+   var infoContainer  = lineRows.append("div")  // adds large div for content beneath each bar
       .attr("class", "info-container")
 
-   var routeCharts  = infoContainer.append("svg")
+   var routeCharts  = infoContainer.append("svg") // creates SVG container for bar chart with bus times
       .attr("width", chartW)
       .attr("height", chartH)
       .attr("class", "route-chart");
 
-   var tables = infoContainer.append("div")
+   var tables = infoContainer.append("div") // creates a div for the table of statistics
       .attr("class", "route-stats")
       .append("table")
       .attr("class", "table-stats")
       .append("tbody");
 
 
-
+     // This adds all of the statistics for each tables
      tables.each(function(d) {
 
       //console.log(d);
@@ -150,27 +152,21 @@ d3.csv("summary.csv", function(data) {
 
          });
 
-   //var cells = table.append('')
-// <tr>
-// <td></td>
-// <td></td>
-// </tr>
-
    //click events for expanding bars
    lineRows.on("click", function(d) {
         
         var expandedOrNot = d3.select(this).classed("push-margin");
         
         if (expandedOrNot) {
-            d3.select(this).classed("push-margin", false);
-            d3.select(this).select("div.info-container").classed("expandedBar", false);
+
+            d3.select(this).classed("push-margin", false); //removes bottom margin
+            d3.select(this).select("div.info-container").classed("expandedBar", false); // sets opacity to 0
         } else {
-            d3.select(this).classed("push-margin", true);
-            d3.select(this).select("div.info-container").classed("expandedBar", true);
+            d3.select(this).classed("push-margin", true); // pushes content down via bottom marin
+            d3.select(this).select("div.info-container").classed("expandedBar", true); // sets opacity to 1
 
         }
 });
-
 
 
 //scatterplot data for each individual line
@@ -251,9 +247,7 @@ d3.csv('allRoutes.csv', function(data){
 
                     }
 
-
                   }
-
 
                   return newData;
 

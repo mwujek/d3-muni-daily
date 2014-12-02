@@ -65,6 +65,8 @@ h1,h2,h3,h4,h5,h6{
 	height: 290px;
 	background: wheat;
 	z-index: -5;
+	opacity: 0;
+	transition:opacity 0.8s;
 }
 .route-chart{
 	display: inline-block;
@@ -72,7 +74,7 @@ h1,h2,h3,h4,h5,h6{
 
 .route-stats{
 	display: inline-block;
-	width:450px;
+	width:300px;
 	height:290px;
 	background: #aaa;
 	position: absolute;
@@ -87,9 +89,14 @@ tr > td:first-child { text-align: right; padding-right: 20px;} /* first column *
 
 .expandedBar{
 	visibility: visible;
+	opacity: 1;
 }
 
 .push-margin{
 	margin-bottom: 300px;
+}
+
+table{
+	margin:60px auto 0px auto;
 }
 
