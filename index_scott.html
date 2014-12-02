@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Matt Wujek" />
+	<meta name="keywords" content="Matt Wujek graphic design student San Francisco Walla interaction web ux user experience"/>
+	<meta name="description" content="Portfolio of Matt Wujek, interaction designer residing in San Francisco."/>
+	<meta property="og:title" content="Matt Wujek &equiv; Portfolio" />
+	<meta property="og:url" content="http://www.mattwujek.com/" />
+	<meta property="og:image" content="http://mattwujek.com/fb.png"/>
+	<meta property="og:site_name" content="Matt Wujek &equiv; Portfolio"/>
+	<meta property="og:type"   content="website" /> 
+
+	<link href='img/icon.ico' rel='shortcut icon' type='image/ico'>
+
+	<title>just call me wuj</title>
+
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+	<!-- Load d3 -->
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/btns.min.css">
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/combo?pure/0.5.0/base-min.css&pure/0.5.0/grids-min.css&pure/0.5.0/grids-responsive-old-ie-min.css">
+	<![endif]-->
+	<!--[if gt IE 8]><!-->
+	<link rel="stylesheet" href="http://yui.yahooapis.com/combo?pure/0.5.0/base-min.css&pure/0.5.0/grids-min.css&pure/0.5.0/grids-responsive-min.css">
+	<!--<![endif]-->
+  	<link rel="stylesheet" href="css/style.css">
+
+
+
+</head>
+<body>
+<script type="text/javascript">
+
+
+
+
+
+
+
+
+var circleDiameter = 10;
+var barHeight = 20;
+var allLinesData;
+var chartH = 250;
+var chartW = 600;
+
+d3.csv("summary.csv", function(data) {
+
+    allLinesData = data;
+    //console.log(allLinesData)
+
+    // var lines = [
+    //                 { lineName: "29", direction: "in" },
+    //             ];
+
+
+    var summaryData = [ 
+      { colName: "NumTrips", niceName: "Number of Trips" },
+      //Fix this part!!!!!
+      "FirstBus", "LastBus", "Min", "Max", "Avg", "Range", "RouteDist", "AvgSpeed", "Rank"
+    ];
+
+    console.log(summaryData.length);
+
+
+   var lineRows = d3.selectAll("div.line")
+         .data(data)
+         .enter()
+         .append("div")
+         .style("height" , barHeight +"px")
+         .style("width", function(d){
+           var px = "px";
+           return d.RouteDist *50 +px;
+         })
+         .attr("class", "line");
+
+    //console.log(allLinesData);
+   var dotContainer = lineRows.append("svg")  // add svg container for circles
+         .attr("height" , barHeight)
+         .attr("width", function(d){
+           return d.RouteDist *50;
+         })
+         .attr("class",function(d){
+            return d.Route + "-" + d.Direction;
+         });
+
+   var busDot = lineRows.selectAll("svg") // add circles
+         .append( "circle" )
+         .attr('r',5)
+         .attr('fill','#aaa')
+         .attr('cx',0)
+         .attr('cy' , barHeight/2);
+
+
+   var leftLabel = lineRows.append("span") // add labels on the left (route & direction)
+         .text(function(d) {
+             return d.Route + " "+d.Direction;
+         })
+         .attr("class", "line-direction");
+
+
+   var rightLabel = lineRows.append("span") // add labels on the right (miles)
+      .text(function(d) {
+        return d.RouteDist + " miles";
+         })
+      .attr("class", "line-miles");
+
+
+   //data inside each bar
+
+   var infoContainer  = lineRows.append("div")
+      .attr("class", "info-container")
+
+   var routeCharts  = infoContainer.append("svg")
+      .attr("width", chartW)
+      .attr("height", chartH)
+      .attr("class", "route-chart");
+
+   var tables = infoContainer.append("div")
+      .attr("class", "route-stats")
+      .append("table")
+      .attr("class", "table-stats")
+      .append("tbody");
+
+
+
+    tables.each(function(d) {
+
+      console.log(d);
+
+      for (var i = 0; i < summaryData.length; i++){
+
+        //console.log(d3.select(this));
+
+        var row = d3.select(this)
+                    .append("tr");
+
+        row.append("td")
+          .text(summaryData[i].niceName);    //Show the niceName
+
+        row.append("td")
+          .text(d[summaryData[i].colName]);  //Pull the data
+
+      }
+
+    });
+
+   //var cells = table.append('')
+// <tr>
+// <td></td>
+// <td></td>
+// </tr>
+
+   //click events for expanding bars
+   lineRows.on("click", function(d) {
+        
+        var expandedOrNot = d3.select(this).classed("push-margin");
+        
+        if (expandedOrNot) {
+            d3.select(this).classed("push-margin", false);
+            d3.select(this).select("div.info-container").classed("expandedBar", false);
+        } else {
+            d3.select(this).classed("push-margin", true);
+            d3.select(this).select("div.info-container").classed("expandedBar", true);
+
+        }
+});
+
+
+
+//scatterplot data for each individual line
+    // lineRows.append("svg")
+    //     .selectAll("rect")
+    //     .attr("width", 600)
+    //     .attr("height", 400)
+    //     .data(function(d) {
+
+    //         var tripsData = [];
+
+    //         //Loop through all rows
+    //         for (var i = 0; i < allLinesData.length; i++) {
+
+    //             if (allLinesData[i].lineName == d.lineName &&
+    //                 allLinesData[i].lineDirection == d.lineDirection) {
+
+    //                 tripsData.push(allLinesData[i]);
+
+    //             }
+
+
+    //         }
+
+    //         return tripsData;
+
+    //     })
+    //     .enter()
+    //     .append("rect")
+    //     .attr("x", 600)
+    //     .attr("y", 400)
+    //     .attr("width", 400)
+    //     .attr("height", function(d) {
+    //         return d.seconds;
+    //     });
+
+
+
+    // lineRows.on("click", function(d) {
+    //     //do something
+
+    //     var expandedOrNot = d3.select(this).classed("expandedBar");
+
+    //     if (expandedOrNot) {
+    //         d3.select(this).classed("expandedBar", false);
+    //     } else {
+    //         d3.select(this).classed("expandedBar", true);
+    //     }
+
+    // });
+
+//End CSV loading function
+d3.csv('allRoutes.csv', function(data){
+            // var allRoutes = d3.csv.parseRows(_data)
+            // //console.log(allLinesData[0]);
+            
+
+            allTrips = data;
+
+
+            //THIS DOESN:T WORK YET
+
+
+        // lineRows.selectAll("svg") // add circles
+        //         .selectAll("circle")
+        //         .data(function(d, i) {
+
+        //           //you know what i is
+        //           //and i corresponds to a route, as in
+        //           // allLinesData[i]
+
+        //           //so here you would just extract the data from
+        //           //allTrips that matches the Route and Direction from allLinesData
+
+        //           var newData = [];
+
+        //           for (var j = 0; j < allTrips.length; j++) {
+
+        //             if (allLinesData[i].Route == allTrips[j].Route
+        //                 && allLinesData[i].Direction == allTrips[j].Direction) {
+
+        //               newData.push(allTrips[j]);
+
+        //             }
+
+
+        //           }
+
+
+        //           return newData;
+
+        //         })
+        //         .enter()
+        //         .append( "circle" )
+        //         .attr('r', 5)
+        //         .attr('fill','#aaa')
+        //         .attr('cx',0) 
+        //         .attr('cy' , barHeight/2);
+
+
+
+
+            //console.log(allLinesData);
+            // var svg = d3.selectAll("div.line")
+            //       //.data(allRoutes)
+            //       //.enter()
+            //       .append("svg")
+            //       .attr("width", 50)
+            //       .attr("height", 2);
+
+            //       console.log(allRoutes[1,0] +'asdasd');
+
+            // var busDots = d3.selectAll("div.line")
+            //       .data(allRoutes[0])
+            //       .enter()
+            //       .append('circle')
+            //       .attr('r',5)
+            //       .attr('fill','#ccc')
+
+   // var lineRows = d3.selectAll("div.line")
+   //                 .data(data)
+   //                 .enter()
+   //                 .append("div")
+   //                 .style("width", function(d){
+   //                   var px = "px";
+   //                   return d.RouteDist *50 +px;
+   //                 })
+   //                 .attr("class", "line");
+
+//});
+
+
+
+
+//play button
+// d3.select("#playButton")
+//     .on("click", function() {
+    
+//         lineRows.selectAll("circle")
+//                 .transition()
+//                 .duration(function(d) {
+//                     return d.seconds;
+//                 })
+//                 .attr("cx", function(d) {
+//                     return "100%";
+//                 });
+    
+//     });
+
+}); //end of allRoute data
+
+}); // end all
+
+
+
+</script>
+	<!--<script src="js/wuj.js"></script>-->
+</body>
+</html>
