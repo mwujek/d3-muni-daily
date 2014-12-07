@@ -1,19 +1,32 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:400,100,300,100italic,300italic,700);
 
+@import url(http://fonts.googleapis.com/css?family=Karla:400,700|Cutive+Mono|PT+Mono);
+
+// font-family: 'Cutive Mono', ;
+// font-family: 'PT Mono', ;
 body{
-	
+	font-family: 'Karla', sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6{
-	font-family: 'lato', sans-serif;
+	font-family: 'Karla', sans-serif;
 }
 
-
+.container-lines{
+	max-width: 600px;
+	margin: 0 auto;
+	position: relative;
+	//height: 1000px;
+}
 /*grid layout, sizing, and padding*/
 .container{
 	margin: 0 auto;
 	background: #aaa;
 	max-width: 600px;
+}
+
+.selected{
+	background:#7fdbff !important;
+	color:#0274d9 !important;
 }
 
 .padding-box{
@@ -29,15 +42,17 @@ h1,h2,h3,h4,h5,h6{
 
 
 .line{
-	//width:100px;
-	//height:20px;
+	//width:100px	//height:20px;
 	display: block;
 	background: #ccc;
-	margin-bottom: 2px;
+	margin-bottom: 6px;
 	margin-left: 130px;
 	position: relative;
-	transition: 0.3s all;
+	transition: 0.5s all;
+	//transform:scaleX(0);
+	//transform-origin:center left;
 }
+
 
 .line-direction{
 	position: absolute;
@@ -47,12 +62,33 @@ h1,h2,h3,h4,h5,h6{
 	top:3px;
 }
 
+.select-label{
+	position: absolute;
+	left:-195px;
+	text-align: left;
+	display: inline-block;
+	padding: 10px;
+	top:3px;
+	background:#eee;
+	color:#aaa;
+	padding: 3px 0px;
+	font-size: 12px;
+	width: 60px;
+	text-align: center;
+	border-radius: 2px;
+	transition:0.3s all;
+	&:hover{
+		cursor: pointer;
+		background: #ccc;
+	}
+}
+
 .line-miles{
 	position: absolute;
-	right: -90px;
+	right: -128px;
 	text-align: left;
-	width: 80px;
-	top:3px;
+	width: 120px;
+	top:4px;
 }
 
 

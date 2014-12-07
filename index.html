@@ -36,6 +36,15 @@
 </head>
 <body>
 
+<div class="container-lines"></div>
+
+<h1 class="play">Play</h1>
+<h1 class="play-selected">Play Selected</h1>
+
+<hr>
+
+<h1 class="reset-all">Reset All</h1>
+<h1 class="reset">Reset (Keep Selections)</h1>
 
 <script type="text/javascript">
 
@@ -63,8 +72,8 @@ d3.csv("summary.csv", function(data) {
     { colName: "Rank", niceName: "Rank" },
 
 ];
-
-   var lineRows = d3.selectAll("div.line") // make a div for each line/direction...scale line based on distance
+   var container = d3.selectAll("div.container-lines")
+   var lineRows = container.selectAll("div.line") // make a div for each line/direction...scale line based on distance
          .data(data)
          .enter()
          .append("div")
@@ -81,7 +90,7 @@ d3.csv("summary.csv", function(data) {
            return d.RouteDist *50;
          })
          .attr("class",function(d){
-            return d.Route + "-" + d.Direction;
+            return d.Route + "-" + d.Direction + " routeBar";
          });
 
     // ISSUE #1 ADDING DOTS TO THE SVG CONTAINER
@@ -105,13 +114,16 @@ d3.csv("summary.csv", function(data) {
          })
          .attr("class", "line-direction");
 
-
    var rightLabel = lineRows.append("span") // add labels on the right (miles)
       .text(function(d) {
         return d.RouteDist + " miles";
          })
       .attr("class", "line-miles");
 
+
+   var selectLabel = lineRows.append("span") // add labels on the left (route & direction)
+         .text("select")
+         .attr("class", "select-label");
 
    //data inside each bar
 
@@ -153,17 +165,17 @@ d3.csv("summary.csv", function(data) {
          });
 
    //click events for expanding bars
-   lineRows.on("click", function(d) {
+   dotContainer.on("click", function(d) {
         
-        var expandedOrNot = d3.select(this).classed("push-margin");
+        var expandedOrNot = d3.select(this.parentNode).classed("push-margin");
         
         if (expandedOrNot) {
 
-            d3.select(this).classed("push-margin", false); //removes bottom margin
-            d3.select(this).select("div.info-container").classed("expandedBar", false); // sets opacity to 0
+            d3.select(this.parentNode).classed("push-margin", false); //removes bottom margin
+            d3.select(this.parentNode).select("div.info-container").classed("expandedBar", false); // sets opacity to 0
         } else {
-            d3.select(this).classed("push-margin", true); // pushes content down via bottom marin
-            d3.select(this).select("div.info-container").classed("expandedBar", true); // sets opacity to 1
+            d3.select(this.parentNode).classed("push-margin", true); // pushes content down via bottom marin
+            d3.select(this.parentNode).select("div.info-container").classed("expandedBar", true); // sets opacity to 1
 
         }
 });
@@ -218,48 +230,152 @@ d3.csv("summary.csv", function(data) {
 
     // });
 
-//End CSV loading function
-d3.csv('allRoutes.csv', function(data){
-            // var allRoutes = d3.csv.parseRows(_data)
-            // //console.log(allLinesData[0]);
-            allTrips = data;
+  //End CSV loading function
+  d3.csv('allRoutes.csv', function(data){
+              // var allRoutes = d3.csv.parseRows(_data)
+              // //console.log(allLinesData[0]);
+              allTrips = data;
 
 
-            lineRows.selectAll("svg") // add circles
-                .selectAll("circle")
-                .data(function(d, i) {
+              lineRows.select("svg.routeBar") // add circles
+                  .selectAll("circle")
+                  .data(function(d, i) {
 
-                  //you know what i is
-                  //and i corresponds to a route, as in
-                  // allLinesData[i]
+                    //you know what i is
+                    //and i corresponds to a route, as in
+                    // allLinesData[i]
 
-                  //so here you would just extract the data from
-                  //allTrips that matches the Route and Direction from allLinesData
+                    //so here you would just extract the data from
+                    //allTrips that matches the Route and Direction from allLinesData
+                    
+                    //console.log(d);
+                    //console.log(i);
 
-                  var newData = [];
+                    var newData = [];
 
-                  for (var j = 0; j < allTrips.length; j++) {
+                    for (var j = 0; j < allTrips.length; j++) {
 
-                    if (allLinesData[i].Route == allTrips[j].Route
-                        && allLinesData[i].Direction == allTrips[j].Direction) {
+                      if (allLinesData[i].Route == allTrips[j].Route
+                          && allLinesData[i].Direction.toLowerCase() == allTrips[j].Direction.toLowerCase()) {
 
-                      newData.push(allTrips[j]);
+                        newData.push(allTrips[j]);
+
+                      }
 
                     }
 
-                  }
+                    console.log(newData);
+                    return newData;
 
-                  return newData;
+                  })
+                  
+                  .enter()
+                  .append( "circle" )
+                  .attr('r', 5)
+                  .attr("fill", function (d){
+                    //console.log(d.AnimationTime);
+                    return "none";
+                  })
+                  .attr('stroke','green')
+                  //.attr('opacity',0.09)
+                  .attr('cx', '2%') 
+                  .attr('cy' , barHeight/2);
 
-                })
-                .enter()
-                .append( "circle" )
-                .attr('r', 5)
-                .attr('fill','#aaa')
-                .attr('cx',0) 
-                .attr('cy' , barHeight/2);
 
-}); //end of allRoute data
+
+
+                  //MAKE THE CHARTS HERE
+var resetButton = d3.select('h1.reset');
+var resetAllButton = d3.select('h1.reset-all');
+
+var playButton = d3.select('h1.play');
+playButton.on("click", function(d) {
+          //Start playing the circle animation
+            lineRows.select("svg.routeBar")
+                  .selectAll("circle")
+                  .transition()
+                  .ease("linear")
+                  .duration(function(d) {
+                    return parseInt(d.AnimationTime);
+                  })
+                  .attr("cx", "98%");
+
+//selectLabel.text('select').classed("selected", false);
+//d3.selectAll('.selected').classed("selected", false);
+
+});
+
+resetButton.on("click", function(d) {
+          //Reset the circle animation
+            lineRows.select("svg.routeBar")
+                  .selectAll("circle")
+                  .transition()
+                  .ease("bounce")
+                  .duration(1000)
+                  .attr("cx", "2%");
+
+                  //selectLabel.text('select').classed("selected", false);
+                  //d3.selectAll('.selected').classed("selected", false);
+
+});
+
+resetAllButton.on("click", function(d) {
+              lineRows.select("svg.routeBar")
+                  .selectAll("circle")
+                  .transition()
+                  .ease("bounce")
+                  .duration(1000)
+                  .attr("cx", "2%");
+
+                  selectLabel.text('select').classed("selected", false);
+                  d3.selectAll('.selected').classed("selected", false);
+});
+
+
+
+   //click events for playing individual
+   selectLabel.on("click", function(d) {
+
+        var thisBar = d3.select(this.parentNode);
+        var selectOrNot = d3.select(this).classed("selected");
+
+        if (selectOrNot) {
+            d3.select(this).text('select'); //bar is NOT SELECTED
+            d3.select(this).classed("selected", false);
+
+        } else { // 
+            d3.select(this).text('selected'); //bar is SELECTED
+            d3.select(this).classed("selected", true);
+            
+
+        }
+
+});
+
+
+playSelected = d3.select('h1.play-selected');
+  playSelected.on("click", function(d) {
+
+    var selectedLines = d3.selectAll('.selected');
+    var parent = selectedLines.select(function() { return this.parentNode; })
+    console.log(parent);
+    
+
+    parent.selectAll("circle")
+                  .transition()
+                  .ease("linear")
+                  .duration(function(d) {
+                    return parseInt(d.AnimationTime);
+                  })
+                  .attr("cx", "98%");
+
+
+    // reset the labels
+
+
+}); // end play selected function
+
+  }); //end of allRoute data
 
 }); // end all
 
