@@ -4,7 +4,7 @@ var routeID;
   function containerMargin (){
       var height = $(window).height();
       var $container = $('.container-lines');
-      $container.css('margin-top', height/4);
+      $container.css('margin-top', height/3.5);
   }
 
 
@@ -78,11 +78,11 @@ var $parentSVG = $('.svg-parent');  //selects parent container (used for 'z-inde
 
   //place container in the middle
   
-
+$( document ).ready(function() {
   containerMargin(); // resize margins for container
 
   $(window).resize(function() {
       containerMargin();
 });
 
-//});
+});

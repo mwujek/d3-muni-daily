@@ -71,8 +71,12 @@ nav{
 	li{
 		font-size: 16px;
 		margin-top: 5px;
+		color:#777;
+		transition:0.3s all;
 		&:hover{
 			cursor: pointer;
+			text-decoration: underline;
+			color:#333;
 		}
 	}
 
