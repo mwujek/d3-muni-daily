@@ -58,13 +58,13 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/img\/header.png": {
-		"fileType": 32768,
+	"\/img\/fb.jpg": {
+		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 5883,
-		"inputAbbreviatedPath": "\/img\/header.png",
-		"outputAbbreviatedPath": "\/img\/header.png",
+		"initialSize": 732161,
+		"inputAbbreviatedPath": "\/img\/fb.jpg",
+		"outputAbbreviatedPath": "\/img\/fb.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0

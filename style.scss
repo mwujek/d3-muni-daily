@@ -1,11 +1,25 @@
+$font-color: #2980b9;
+$font-color-lighter: #3498db;
+$font-color-lightest: #fff;
+$bg-color:#2c3e50;
+
+$line-div-color: #34495e;
+$line-div-border:#263644;
+$guide-width:1px !important;
+
+$label-color:#7f8c8d;
+$stats-color: #ecf0f1;
 
 
 // font-family: 'Cutive Mono', ;
 // font-family: 'PT Mono', ;
-body{
+body,html{
 	font-family: 'adelle-sans', sans-serif;
 	z-index: 0;
 	height: 100%;
+	width: 100%;
+	background:$bg-color;
+	color:$font-color;
 
 
 }
@@ -44,8 +58,10 @@ line-height: 20px;
 }
 
 nav{
-	width:300px;
-	background: url(../img/bg.jpg);
+	width:230px;
+
+	//background: url(../img/bg.jpg);
+	background: $line-div-border;
 	background-repeat: no-repeat !important;
 	background-position: bottom center !important;
 	background-size: cover !important;
@@ -60,23 +76,23 @@ nav{
 	img{
 		margin: 0px auto 10px auto;
 		display: block;
-		width: 65%;
+		width: 80%;
 	}
-	ul,li{
-		text-indent: 0;
-		padding:0;
-		margin: 0;
-		text-align: center;
-	}
+	// ul,li{
+	// 	text-indent: 0;
+	// 	padding:0;
+	// 	margin: 0;
+	// 	text-align: center;
+	// }
 	li{
 		font-size: 16px;
 		margin-top: 5px;
-		color:#777;
+		color:$stats-color;
 		transition:0.3s all;
 		&:hover{
 			cursor: pointer;
 			text-decoration: underline;
-			color:#333;
+			color:$font-color-lighter;
 		}
 	}
 
@@ -90,13 +106,13 @@ nav{
     padding: 0; }
 }
 .map{
-	max-width: 80%;
-	margin: 20px auto;
+	max-width: 100%;
+	margin: 40px auto 10px auto;
 	position: relative;
 	//background: blue;
 }
 .container-lines{
-	max-width: 600px;
+	max-width: 680px;
 	margin: 50px auto;
 	position: relative;
 	//height: 1000px;
@@ -116,9 +132,10 @@ nav{
 	}
 }
 .guide{
-	background:#fff;
+	background:$bg-color;
 	position: absolute;
-	top:0px;
+	top:110px;
+	width: $guide-width;
 }
 
 .padding-box{
@@ -136,8 +153,8 @@ nav{
 .line{
 	//width:100px	//height:20px;
 	display: block;
-	background: #eee;
-	border: 1px #ddd solid;
+	background: $line-div-color;
+	border: 1px $line-div-border solid;
 	margin-bottom: 6px;
 	margin-left: 130px;
 	position: relative;
@@ -153,7 +170,7 @@ nav{
 	text-align: left;
 	width: 120px;
 	top:3px;
-	color: #999;
+	color: $label-color;
 	z-index: 0;
 
 }
@@ -166,11 +183,22 @@ nav{
 }
 
 .site-info{
-	top: -185px;
-	left: -5px;
-	position: absolute;
-	width: 630px;
+	position: relative;
+	max-width: 700px;
 	line-height: 19px;
+	z-index: 900;
+	margin-bottom: 60px;
+	margin-left: 20px;
+	color: $stats-color;
+
+	h1{
+		border-bottom: 3px white solid;
+		display: inline-block;
+		margin-right: 100%;
+		padding-bottom: 8px !important;
+		margin-bottom: 10px;
+		font-size: 26px;
+	}
 
 	a{
 		transition:0.3s all;
@@ -179,27 +207,54 @@ nav{
 			color:#7fdbff;
 		}
 	}
+
+	ul{
+		display: inline-block;
+		margin-left: 0px !important;
+		margin: 0px !important;
+		margin-right: 10px !important;
+		padding-left: 0px !important;
+		padding-right: 10px !important;
+		text-indent: 0px !important;
+		border-right: $stats-color 1px solid;
+		li{
+			display: inline-block;
+			margin-left: 0px !important;
+			margin-right: 5px;
+			padding-left: 0px !important;
+			text-indent: 0px !important;
+			color:$stats-color;
+			transition:0.3s all;
+			&:hover{
+				cursor: pointer;
+				text-decoration: underline;
+				color:$font-color-lighter;
+		}
+		}
+	}
 }
 
 .label-top{
 	position:absolute;
-	top:-30px;
+	top:280px;
 	font-size: 16px;
-	border-bottom: 1px solid #CCC;
+	border-bottom: 1px solid $label-color;
 	margin: 0px;
 	padding: 0px;
-	color:#ccc;
+	padding-bottom: 5px;
+	color:$label-color;
 }
 .label-selected{
 	left: -46px;
 }
 
 .label-route{
-	left: 21px
+	left: 21px;
+	color: $label-color !important;
 }
 .label-bar{
 	left: 130px;
-	width: 230px;
+	//width: 230px;
 }
 
 .select-label{
@@ -208,15 +263,15 @@ nav{
 	text-align: left;
 	display: inline-block;
 	top:3px;
-	background:#eee;
-	color:#aaa;
+	background: $label-color;
+	color:$font-color-lightest;
 	font-size: 12px;
 	width: 12px;
 	height: 12px;
 	border-radius: 10px;
 	text-align: center;
 	transition:0.3s all;
-	border: #DDD 1px solid;
+	border: $stats-color 1px solid;
 	&:hover{
 		cursor: pointer;
 		background: #ccc;
@@ -230,18 +285,20 @@ nav{
 	width: 120px;
 	top:4px;
 	z-index: 1000;
+	color: $label-color;
 }
 
 
 .inactive-toggle{
-	color:#ccc;
+	color:$font-color-lightest;
 }
 
 //info and stats for each line
 
 .info-container{
 	visibility: hidden;
-	width: 600px;
+	min-width: 780px;
+	max-width: 900px;
 	position: absolute;
 	height: 180px;
 	//background: wheat;
@@ -255,6 +312,7 @@ nav{
 
 
 .route-chart{
+	color: $stats-color;
 	display: inline-block;
 	position: absolute;
 	height: 100%;
@@ -283,9 +341,11 @@ nav{
 	position: absolute;
 	left:0;
 	top:0;
+	color: $stats-color;
 }
 tr> td{
 	padding-left: 12px;
+	padding-top:2px;
 }
 tr > td:first-child {
 	text-align: right;
@@ -307,10 +367,32 @@ tr > td:first-child {
 }
 
 table{
-	margin:18px auto 0px auto;
+	margin:10px auto 0px auto;
 }
 
 .hover-bar{
-	background: #ddd !important;
+	background: $line-div-border !important;
 }
 
+
+.bywuj{
+	position:absolute;
+	width: 100%;
+	bottom:0;
+	text-align: center;
+	color: $label-color;
+	font-size: 12px;
+	line-height: 14px;
+	a{
+		color:$font-color-lightest;
+		&:hover{
+			color:$font-color-lighter;
+		}
+	}
+}
+
+.timer-container{
+	position: fixed;
+	top:50px;
+	left:400px;
+}

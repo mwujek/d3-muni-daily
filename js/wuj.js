@@ -1,11 +1,11 @@
   var $bars = $('.routeBar');
 var routeID;
 
-  function containerMargin (){
-      var height = $(window).height();
-      var $container = $('.container-lines');
-      $container.css('margin-top', height/3.5);
-  }
+  // function containerMargin (){
+  //     var height = $(window).height();
+  //     var $container = $('.container-lines');
+  //     $container.css('margin-top', height/8);
+  // }
 
 
 function viewRoute(routeID){
@@ -16,7 +16,7 @@ function viewRoute(routeID){
   $routeSVG = $parentSVG.find(".bus-line-"+routeID);
   $routeSVG.css('stroke','#2ecc71');
   $parentSVG.append($routeSVG);
-  console.log($routeSVG);
+  //console.log($routeSVG);
 }
 
 //bus-line-
@@ -46,7 +46,7 @@ var $parentSVG = $('.svg-parent');  //selects parent container (used for 'z-inde
       e.parent().addClass('hover-bar');
       //console.log(e.parent());
       //console.log(routeID);
-      //console.log('yo');
+      console.log('yo');
       viewRoute(routeID);
     },
     mouseleave: function () {
@@ -56,33 +56,4 @@ var $parentSVG = $('.svg-parent');  //selects parent container (used for 'z-inde
     }
 }, ".routeBar");
 
-  // $bars.hover(
 
-  //   function() {
-  //     var e = $(this);
-  //     routeID = $(this).data("route-id");
-  //     e.parent().addClass('hover-bar');
-  //     console.log(e.parent());
-  //     //console.log(routeID);
-  //     //console.log('yo');
-  //     viewRoute(routeID);
-  //     console.log('hy');
-
-  //   }, function() {
-  //     var e = $(this);
-  //     e.parent().removeClass('hover-bar');
-  //     removeRoute(routeID);
-  //   }
-  // );
-
-
-  //place container in the middle
-  
-$( document ).ready(function() {
-  containerMargin(); // resize margins for container
-
-  $(window).resize(function() {
-      containerMargin();
-});
-
-});
