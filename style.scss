@@ -1,35 +1,40 @@
-$font-color: #2980b9;
-$font-color-lighter: #3498db;
-$font-color-lightest: #fff;
-$bg-color:#2c3e50;
+$font-color: #333;
+$font-color-lighter: #666;
+$font-color-lightest: #333;
+$bg-color:#fff;
 
-$line-div-color: #34495e;
-$line-div-border:#263644;
+$line-div-color: #ccc;
+$line-div-border:#eee;
 $guide-width:1px !important;
 
-$label-color:#7f8c8d;
-$stats-color: #ecf0f1;
+$label-color:#333;
+$stats-color: #333;
+$body-font-family: 'aktiv-grotesk-std', sans-serif;
+$heading-font-family: 'kulturista-web';
+//$label-font-family: 'courier-prime';
 
+@media(min-width:30em){.row{width:100%;display:table;table-layout:fixed}.col{display:table-cell}}
 
-// font-family: 'Cutive Mono', ;
-// font-family: 'PT Mono', ;
 body,html{
-	font-family: 'adelle-sans', sans-serif;
+	font-family: $body-font-family;
 	z-index: 0;
 	height: 100%;
 	width: 100%;
 	background:$bg-color;
 	color:$font-color;
+	font-weight: 300;
 
 
 }
 
 h1,h2,h3,h4,h5,h6{
-	font-family: 'adelle-sans', sans-serif;
+	font-family: $heading-font-family;
+	font-weight: 300;
 }
-
-
-
+p{
+  font-size: 15px;
+  line-height: 23px;
+}
 #tooltip {
 position: absolute;
 width: 200px;
@@ -58,15 +63,12 @@ line-height: 20px;
 }
 
 nav{
-	width:230px;
-
-	//background: url(../img/bg.jpg);
+	width:230px !important;
 	background: $line-div-border;
 	background-repeat: no-repeat !important;
 	background-position: bottom center !important;
 	background-size: cover !important;
 	background-attachment: fixed!important;
-	//padding-top: 300px;
 	left:0px;
 	top:0px;
 	position: fixed;
@@ -78,12 +80,7 @@ nav{
 		display: block;
 		width: 80%;
 	}
-	// ul,li{
-	// 	text-indent: 0;
-	// 	padding:0;
-	// 	margin: 0;
-	// 	text-align: center;
-	// }
+
 	li{
 		font-size: 16px;
 		margin-top: 5px;
@@ -96,20 +93,15 @@ nav{
 		}
 	}
 
-	hr {
-	display: block;
-	height: 1px;
-    border: 0;
-    width: 40%;
-    margin: 1em auto;
-    border-top: 1px solid #ccc;
-    padding: 0; }
+    .col{
+		vertical-align: middle;
+	}
 }
 .map{
-	max-width: 100%;
+	//width: 400px;
 	margin: 40px auto 10px auto;
 	position: relative;
-	//background: blue;
+	text-align: center;
 }
 .container-lines{
 	max-width: 680px;
@@ -165,13 +157,15 @@ nav{
 
 
 .line-direction{
+	font-size: 14px;
 	position: absolute;
-	left:-110px;
+	left:-100px;
 	text-align: left;
 	width: 120px;
 	top:3px;
 	color: $label-color;
 	z-index: 0;
+	font-family: $body-font-family;
 
 }
 
@@ -190,14 +184,20 @@ nav{
 	margin-bottom: 60px;
 	margin-left: 20px;
 	color: $stats-color;
+	height: 0px;
+	overflow: hidden;
 
 	h1{
-		border-bottom: 3px white solid;
+		border-bottom: 1px $font-color solid;
 		display: inline-block;
 		margin-right: 100%;
-		padding-bottom: 8px !important;
-		margin-bottom: 10px;
-		font-size: 26px;
+		padding-bottom: 4px !important;
+		margin-bottom: 0px;
+		font-size: 20px;
+		text-transform: uppercase;
+		letter-spacing: 3px;
+		font-weight: 400;
+
 	}
 
 	a{
@@ -236,13 +236,14 @@ nav{
 
 .label-top{
 	position:absolute;
-	top:280px;
+	top:200px;
 	font-size: 16px;
 	border-bottom: 1px solid $label-color;
 	margin: 0px;
 	padding: 0px;
 	padding-bottom: 5px;
 	color:$label-color;
+	z-index: 100;
 }
 .label-selected{
 	left: -46px;
@@ -259,11 +260,11 @@ nav{
 
 .select-label{
 	position: absolute;
-	left:-134px;
+	left:-124px;
 	text-align: left;
 	display: inline-block;
 	top:3px;
-	background: $label-color;
+	//background: $label-color;
 	color:$font-color-lightest;
 	font-size: 12px;
 	width: 12px;
@@ -375,24 +376,21 @@ table{
 }
 
 
-.bywuj{
-	position:absolute;
-	width: 100%;
-	bottom:0;
-	text-align: center;
-	color: $label-color;
-	font-size: 12px;
-	line-height: 14px;
-	a{
-		color:$font-color-lightest;
-		&:hover{
-			color:$font-color-lighter;
-		}
+
+.top-section{
+	max-width: 800px;
+	padding-left: 300px;
+	.col{
+		vertical-align: middle;
 	}
 }
 
-.timer-container{
-	position: fixed;
-	top:50px;
-	left:400px;
-}
+
+
+
+
+
+
+
+
+

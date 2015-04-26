@@ -1,13 +1,27 @@
+@media (min-width: 30em) {
+  .row {
+    width: 100%;
+    display: table;
+    table-layout: fixed; }
+
+  .col {
+    display: table-cell; } }
 body, html {
-  font-family: 'adelle-sans', sans-serif;
+  font-family: "aktiv-grotesk-std", sans-serif;
   z-index: 0;
   height: 100%;
   width: 100%;
-  background: #2c3e50;
-  color: #2980b9; }
+  background: #fff;
+  color: #333;
+  font-weight: 300; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'adelle-sans', sans-serif; }
+  font-family: "kulturista-web";
+  font-weight: 300; }
+
+p {
+  font-size: 15px;
+  line-height: 23px; }
 
 #tooltip {
   position: absolute;
@@ -36,8 +50,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #ddd !important; }
 
 nav {
-  width: 230px;
-  background: #263644;
+  width: 230px !important;
+  background: #eee;
   background-repeat: no-repeat !important;
   background-position: bottom center !important;
   background-size: cover !important;
@@ -55,25 +69,19 @@ nav {
   nav li {
     font-size: 16px;
     margin-top: 5px;
-    color: #ecf0f1;
+    color: #333;
     transition: 0.3s all; }
     nav li:hover {
       cursor: pointer;
       text-decoration: underline;
-      color: #3498db; }
-  nav hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    width: 40%;
-    margin: 1em auto;
-    border-top: 1px solid #ccc;
-    padding: 0; }
+      color: #666; }
+  nav .col {
+    vertical-align: middle; }
 
 .map {
-  max-width: 100%;
   margin: 40px auto 10px auto;
-  position: relative; }
+  position: relative;
+  text-align: center; }
 
 .container-lines {
   max-width: 680px;
@@ -93,9 +101,9 @@ nav {
     background: #71bac6 !important; }
 
 .guide {
-  background: #2c3e50;
+  background: #fff;
   position: absolute;
-  top: 300px;
+  top: 110px;
   width: 1px !important; }
 
 .padding-box {
@@ -109,21 +117,23 @@ nav {
 
 .line {
   display: block;
-  background: #34495e;
-  border: 1px #263644 solid;
+  background: #ccc;
+  border: 1px #eee solid;
   margin-bottom: 6px;
   margin-left: 130px;
   position: relative;
   transition: 0.5s all; }
 
 .line-direction {
+  font-size: 14px;
   position: absolute;
-  left: -110px;
+  left: -100px;
   text-align: left;
   width: 120px;
   top: 3px;
-  color: #7f8c8d;
-  z-index: 0; }
+  color: #333;
+  z-index: 0;
+  font-family: "aktiv-grotesk-std", sans-serif; }
 
 .routeBar, .routeBar circle {
   z-index: 2000; }
@@ -137,14 +147,19 @@ nav {
   z-index: 900;
   margin-bottom: 60px;
   margin-left: 20px;
-  color: #ecf0f1; }
+  color: #333;
+  height: 0px;
+  overflow: hidden; }
   .site-info h1 {
-    border-bottom: 3px white solid;
+    border-bottom: 1px #333 solid;
     display: inline-block;
     margin-right: 100%;
-    padding-bottom: 8px !important;
-    margin-bottom: 10px;
-    font-size: 26px; }
+    padding-bottom: 4px !important;
+    margin-bottom: 0px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 400; }
   .site-info a {
     transition: 0.3s all;
     color: #0274d9; }
@@ -158,55 +173,55 @@ nav {
     padding-left: 0px !important;
     padding-right: 10px !important;
     text-indent: 0px !important;
-    border-right: #ecf0f1 1px solid; }
+    border-right: #333 1px solid; }
     .site-info ul li {
       display: inline-block;
       margin-left: 0px !important;
       margin-right: 5px;
       padding-left: 0px !important;
       text-indent: 0px !important;
-      color: #ecf0f1;
+      color: #333;
       transition: 0.3s all; }
       .site-info ul li:hover {
         cursor: pointer;
         text-decoration: underline;
-        color: #3498db; }
+        color: #666; }
 
 .label-top {
   position: absolute;
-  top: 280px;
+  top: 200px;
   font-size: 16px;
-  border-bottom: 1px solid #7f8c8d;
+  border-bottom: 1px solid #333;
   margin: 0px;
   padding: 0px;
   padding-bottom: 5px;
-  color: #7f8c8d; }
+  color: #333;
+  z-index: 100; }
 
 .label-selected {
   left: -46px; }
 
 .label-route {
   left: 21px;
-  color: #7f8c8d !important; }
+  color: #333 !important; }
 
 .label-bar {
   left: 130px; }
 
 .select-label {
   position: absolute;
-  left: -134px;
+  left: -124px;
   text-align: left;
   display: inline-block;
   top: 3px;
-  background: #7f8c8d;
-  color: #fff;
+  color: #333;
   font-size: 12px;
   width: 12px;
   height: 12px;
   border-radius: 10px;
   text-align: center;
   transition: 0.3s all;
-  border: #ecf0f1 1px solid; }
+  border: #333 1px solid; }
   .select-label:hover {
     cursor: pointer;
     background: #ccc; }
@@ -218,10 +233,10 @@ nav {
   width: 120px;
   top: 4px;
   z-index: 1000;
-  color: #7f8c8d; }
+  color: #333; }
 
 .inactive-toggle {
-  color: #fff; }
+  color: #333; }
 
 .info-container {
   visibility: hidden;
@@ -236,7 +251,7 @@ nav {
   margin: 5px auto; }
 
 .route-chart {
-  color: #ecf0f1;
+  color: #333;
   display: inline-block;
   position: absolute;
   height: 100%;
@@ -262,7 +277,7 @@ nav {
   position: absolute;
   left: 0;
   top: 0;
-  color: #ecf0f1; }
+  color: #333; }
 
 tr > td {
   padding-left: 12px;
@@ -287,22 +302,10 @@ table {
   margin: 10px auto 0px auto; }
 
 .hover-bar {
-  background: #263644 !important; }
+  background: #eee !important; }
 
-.bywuj {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  text-align: center;
-  color: #7f8c8d;
-  font-size: 12px;
-  line-height: 14px; }
-  .bywuj a {
-    color: #fff; }
-    .bywuj a:hover {
-      color: #3498db; }
-
-.timer-container {
-  position: fixed;
-  top: 50px;
-  left: 400px; }
+.top-section {
+  max-width: 800px;
+  padding-left: 300px; }
+  .top-section .col {
+    vertical-align: middle; }
