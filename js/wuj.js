@@ -1,11 +1,5 @@
-  var $bars = $('.routeBar');
+var $bars = $('.routeBar');
 var routeID;
-
-  // function containerMargin (){
-  //     var height = $(window).height();
-  //     var $container = $('.container-lines');
-  //     $container.css('margin-top', height/8);
-  // }
 
 
 function viewRoute(routeID){
@@ -16,27 +10,14 @@ function viewRoute(routeID){
   $routeSVG = $parentSVG.find(".bus-line-"+routeID);
   $routeSVG.css('stroke','#2ecc71');
   $parentSVG.append($routeSVG);
-  //console.log($routeSVG);
 }
 
-//bus-line-
-
- function removeRoute(routeID){
-//  // for hover effect
-
-var $routeSVG; // SVG element in map
-var $parentSVG = $('.svg-parent');  //selects parent container (used for 'z-index')
-
+function removeRoute(routeID){
+  var $routeSVG; // SVG element in map
+  var $parentSVG = $('.svg-parent'); 
   $routeSVG = $parentSVG.find(".bus-line-"+routeID);
   $routeSVG.css('stroke','');
-
-  }
-
-
-  //$(document).ready(function(){
-
-  
-  //$allPaths =  $('.metro-path, .tep-path');
+}
 
 
   $(document).on({
@@ -44,9 +25,7 @@ var $parentSVG = $('.svg-parent');  //selects parent container (used for 'z-inde
       var e = $(this);
       routeID = $(this).data("route-id");
       e.parent().addClass('hover-bar');
-      //console.log(e.parent());
-      //console.log(routeID);
-      console.log('yo');
+
       viewRoute(routeID);
     },
     mouseleave: function () {
@@ -57,3 +36,20 @@ var $parentSVG = $('.svg-parent');  //selects parent container (used for 'z-inde
 }, ".routeBar");
 
 
+$(document).ready(function() {
+  var moreInfoBtn = $('.more-btn');
+  var moreInfoSection = $('.more-info');
+  moreInfoBtn.click(function() {
+    var el = $(this);
+    if (el.hasClass('active-btn') ){
+        moreInfoSection.velocity({opacity:0, height:0},{duration:500, visibility: 'hidden'});
+        moreInfoBtn.text('More Info');
+        el.toggleClass('active-btn');
+    } else {
+        moreInfoSection.velocity({opacity:1, height:161},{duration:500, visibility: 'visible'});
+        moreInfoBtn.text('Close');
+        el.toggleClass('active-btn');
+    }
+
+  });
+});
